@@ -1,8 +1,6 @@
 import { useState } from "react"
-import { Link } from "react-router-dom";
 
-export default function LoginPage() {
-
+export default function RegisterPage() {    
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
@@ -81,7 +79,7 @@ export default function LoginPage() {
             </section>
         
             <footer className="items-center p-6 pt-0 flex justify-center">
-                <p className="text-sm text-gray-500">Don't have an account? <Link to="/register"className="text-black hover:underline">Register here</Link></p>
+
             </footer>
 
         </div>
