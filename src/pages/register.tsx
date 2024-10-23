@@ -1,26 +1,27 @@
 import { useState } from "react"
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
-export default function LoginPage() {
-
+export default function RegisterPage() {    
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [passwordRepeted, setpasswordRepeted] = useState("")
   const [error, setError] = useState("")
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
 
-    if (!email || !password) {
+    if (!email || !password || !passwordRepeted) {
       setError("Please fill in all fields")
       return
     }
 
-    // Here you would typically make an API call to authenticate the user
-    console.log("Login attempt with:", { email, password })
-    // For demonstration purposes, we'll just log the attempt
+    if(password !== passwordRepeted){
+        setError("Incorrect Passwords");
+        return;
+    }
 
-    setError("Invalid email or password") // Simulating an error response
+    // console.log("Login attempt with:", { email, password })
   }
 
   return (
@@ -49,7 +50,7 @@ export default function LoginPage() {
                                 <Email className="absolute left-3 top-3 h-4 w-4 text-gray-500"></Email>
                                 <input 
                                     autoFocus
-                                    className="flex h-10 w-full rounded-md border px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none pl-10" 
+                                    className={`flex h-10 w-full rounded-md border px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none pl-10 ${error && !email ? "border-red-400/50" : ""}`}
                                     id="email" 
                                     placeholder="Enter your email" 
                                     type="email" 
@@ -64,12 +65,27 @@ export default function LoginPage() {
                             <div className="relative">
                                 <Password className="absolute left-3 top-3 h-4 w-4 text-gray-500"></Password>
                                 <input 
-                                    className="flex h-10 w-full rounded-md border px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none pl-10" 
+                                    className={`flex h-10 w-full rounded-md border px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none pl-10 ${error && !password ? "border-red-400/50" : ""}`}
                                     id="password" 
                                     placeholder="Enter your password" 
                                     type="password" 
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium" htmlFor="password">Repeat password</label>
+                            <div className="relative">
+                                <Password className="absolute left-3 top-3 h-4 w-4 text-gray-500"></Password>
+                                <input 
+                                    className={`flex h-10 w-full rounded-md border px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none pl-10 ${(error && (!passwordRepeted || (password !== passwordRepeted))) ? "border-red-400/50" : ""}`}
+                                    id="password" 
+                                    placeholder="Enter your password" 
+                                    type="password" 
+                                    value={passwordRepeted}
+                                    onChange={(e) => setpasswordRepeted(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -80,8 +96,9 @@ export default function LoginPage() {
                 </form>
             </section>
         
+        
             <footer className="items-center p-6 pt-0 flex justify-center">
-                <p className="text-sm text-gray-500">Don't have an account? <Link to="/register"className="text-black hover:underline">Register here</Link></p>
+                <p className="text-sm text-gray-500">Already have an account? <Link to="/"className="text-black hover:underline">Sign In</Link></p>
             </footer>
 
         </div>

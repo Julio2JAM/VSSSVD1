@@ -1,6 +1,8 @@
 import { useState } from "react"
+import { Link } from "react-router-dom";
 
-export default function RegisterPage() {    
+export default function LoginPage() {
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
@@ -21,7 +23,7 @@ export default function RegisterPage() {
     setError("Invalid email or password") // Simulating an error response
   }
 
-  return (
+    return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
 
         <div className={`${!error ? "hidden" : ""} bg-red-50 relative rounded-lg border p-4 px-12 border-red-400/50 text-red-400 mb-4 max-w-md w-full`}>
@@ -79,7 +81,7 @@ export default function RegisterPage() {
             </section>
         
             <footer className="items-center p-6 pt-0 flex justify-center">
-
+                <p className="text-sm text-gray-500">Don't have an account? <Link to="/register"className="text-black hover:underline">Register here</Link></p>
             </footer>
 
         </div>
