@@ -1,6 +1,42 @@
-export function Table({ data }: { data: any }) {
-    // Asegúrate de que header sea un array de claves
-    const header = data && data.length > 0 ? Object.keys(data[0]) : [];
+interface Header {
+    name: string; // Nombre del encabezado
+    type: 'text' | 'button'; // Tipo de contenido: texto o botón
+}
+
+export interface TableData {
+    headers: Header[]; // Un array de encabezados
+    rows: any;     // O puedes definir un tipo más específico para las filas
+}
+interface TableProps {
+    config: TableData;
+}
+
+interface HeaderCellProps {
+    key: number,
+    header: Header;
+    isButton: boolean;
+}
+
+const HeaderCell: React.FC<HeaderCellProps> = ({ key, header, isButton }) => {
+    return (
+        <th className={`h-12 ${isButton ? "px-2" : "px-4" } text-left align-middle font-medium text-gray-500`} key={key}>
+            {isButton ? (
+                <button 
+                    className="justify-center gap-2 whitespace-nowrap rounded-md text-sm transition-colors focus-visible:outline-none hover:bg-gray-200 hover:text-gray-600 h-10 px-4 py-2 flex items-center font-semibold"
+                >
+                    {header.name}
+                    <Arrow className="lucide lucide-chevrons-up-down ml-2 h-4 w-4" />
+                </button>
+            ) : (
+                header.name
+            )}
+        </th>
+    );
+};
+
+export function Table({ config }: TableProps) {
+
+    const { headers, rows } = config;
 
     return (
         <div className="rounded-md border">
@@ -9,20 +45,18 @@ export function Table({ data }: { data: any }) {
                 <table className="w-full caption-bottom text-sm">
                     <thead className="w-[100px]">
                         <tr className="border-b transition-colors hover:bg-gray-100/80">
-                            {header.map((clave: any, index: any) => (
-                                <th className="h-12 px-4 text-left align-middle font-medium text-gray-500" key={index}>
-                                    {clave}
-                                </th>
+                            {headers.map((header, index) => (
+                                <HeaderCell key={index} header={header} isButton={header.type === 'button'} />
                             ))}
-                            <th className="h-12 px-4 align-middle font-medium text-gray-500 text-right">action</th>
+                            <th className="h-12 px-4 align-middle font-medium text-gray-500 text-right">Accion</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        {data.map((row: any, rowIndex: any) => (
+                        {rows.map((row: any, rowIndex: any) => { console.log(row); return (
                             <tr className="border-b transition-colors hover:bg-gray-100/80" key={rowIndex}>
-                                {header.map((clave: any, colIndex: any) => (
-                                    <td className="p-4 align-middle" key={colIndex}>{row[clave]}</td>
+                                {Object.keys(row).map((key,colIndex) => (
+                                    <td className="py-4 px-4 align-middle font-medium" key={colIndex}>{row[key]}</td>
                                 ))}
                                 <td className="px-4 align-middle text-right">
                                     <button 
@@ -37,7 +71,7 @@ export function Table({ data }: { data: any }) {
                                     </button>
                                 </td>
                             </tr>
-                        ))}
+                        )})}
                     </tbody>
 
                 </table>
@@ -45,10 +79,31 @@ export function Table({ data }: { data: any }) {
             </div>
         </div>
     );
+
 }
 
 interface PropsType{
     className:string
+}
+
+function Arrow(props:PropsType){
+    return(
+        <svg 
+            {...props}
+            xmlns="http://www.w3.org/2000/svg" 
+            width="24"
+            height="24" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+        >
+            <path d="m7 15 5 5 5-5"></path>
+            <path d="m7 9 5-5 5 5"></path>
+        </svg>
+    )
 }
 
 function Action(props:PropsType){

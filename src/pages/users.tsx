@@ -1,20 +1,22 @@
 import { Sidebar } from "../components/sidebar";
-import { Table } from "../components/table";
+import { Table, TableData } from "../components/table";
 
-interface Usuario {
-    id: number;
-    nombre: string;
-    edad: number;
-    ciudad: string;
-}
+
 
 export default function UsersPage() {
     
-    const userData: Usuario[] = [
-        { id:1, nombre: 'Juan', edad: 28, ciudad: 'Madrid' },
-        { id:2, nombre: 'Ana', edad: 22, ciudad: 'Barcelona' },
-        { id:3, nombre: 'Luis', edad: 35, ciudad: 'Valencia' },
-    ];
+    const tableConfig:TableData = {
+        headers: [
+            { name: "ID", type: "button" },
+            { name: "Nombre", type: "button" },
+            { name: "Edad", type: "text" },
+        ],
+        rows: [
+            { id:1, nombre: 'Juan', edad: 28, },
+            { id:2, nombre: 'Ana', edad: 22, },
+            { id:3, nombre: 'Lorem ipsum', edad: 35, },
+        ]
+    }
 
     return (
         <div className="flex h-screen bg-gray-100">
@@ -54,7 +56,7 @@ export default function UsersPage() {
                                 </div>
                             </div>
                         </div>
-                        <Table data={userData}></Table>
+                        <Table config={tableConfig}></Table>
                     </div>
                 </div>
 
