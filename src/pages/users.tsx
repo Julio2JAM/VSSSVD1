@@ -2,6 +2,7 @@ import { Sidebar } from "../components/sidebar";
 import { Table } from "../components/table";
 
 interface Usuario {
+    id: number;
     nombre: string;
     edad: number;
     ciudad: string;
@@ -10,9 +11,9 @@ interface Usuario {
 export default function UsersPage() {
     
     const userData: Usuario[] = [
-        { nombre: 'Juan', edad: 28, ciudad: 'Madrid' },
-        { nombre: 'Ana', edad: 22, ciudad: 'Barcelona' },
-        { nombre: 'Luis', edad: 35, ciudad: 'Valencia' },
+        { id:1, nombre: 'Juan', edad: 28, ciudad: 'Madrid' },
+        { id:2, nombre: 'Ana', edad: 22, ciudad: 'Barcelona' },
+        { id:3, nombre: 'Luis', edad: 35, ciudad: 'Valencia' },
     ];
 
     return (
@@ -46,7 +47,10 @@ export default function UsersPage() {
                             <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
                                 <div className="relative w-full md:w-64" data-id="45">
                                     <Search className="lucide lucide-search absolute left-2 top-2.5 h-4 w-4 text-muted-foreground"></Search>
-                                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 pl-8" placeholder="Search users..." data-id="47" value=""/>
+                                    <input 
+                                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 pl-8" 
+                                        placeholder="Search users..." 
+                                    />
                                 </div>
                             </div>
                         </div>
