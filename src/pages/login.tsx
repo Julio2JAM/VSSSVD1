@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom";
+import { Footer } from "../components/footer";
 
 export default function LoginPage() {
 
@@ -24,7 +25,9 @@ export default function LoginPage() {
   }
 
     return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
+    <div className="min-h-screen flex flex-col">
+
+        <div className="flex-grow flex flex-col items-center justify-center bg-gray-100 p-4">    
 
         <div className={`${!error ? "hidden" : ""} bg-red-50 relative rounded-lg border p-4 px-12 border-red-400/50 text-red-400 mb-4 max-w-md w-full`}>
             <CloseBtn className="absolute h-5 w-5 right-5 cursor-pointer" onClick={() => setError("")}></CloseBtn>
@@ -85,6 +88,9 @@ export default function LoginPage() {
             </footer>
 
         </div>
+
+        </div>
+        <Footer></Footer>
     </div>
   )
 }
