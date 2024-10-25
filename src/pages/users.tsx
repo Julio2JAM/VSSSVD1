@@ -1,10 +1,9 @@
 import { Sidebar } from "../components/sidebar";
 import { Table, TableData } from "../components/table";
-
-
+import { useState } from "react";
 
 export default function UsersPage() {
-    
+
     const tableConfig:TableData = {
         headers: [
             { name: "ID", type: "button" },
@@ -34,6 +33,8 @@ export default function UsersPage() {
         
     }
 
+    const [search, setSearch] = useState("");
+      
     return (
         <div className="flex h-screen bg-gray-100">
             <Sidebar />
@@ -61,18 +62,20 @@ export default function UsersPage() {
                         {/* C */}
                         <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 mb-6">
                             <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
-                                <div className="relative w-full md:w-64" data-id="45">
+                                <div className="relative w-full md:w-64">
                                     <Search className="lucide lucide-search absolute left-2 top-2.5 h-4 w-4 text-muted-foreground"></Search>
                                     <input 
                                         className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 pl-8" 
                                         placeholder="Search users..." 
+                                        value={search}
+                                        onChange={(e) => setSearch(e.target.value)}
                                     />
                                 </div>
                             </div>
                         </div>
                         {/* D */}
                         <div className="flex-grow overflow-auto rounded-md border">
-                            <Table config={tableConfig}></Table>
+                            <Table config={tableConfig} search={search}></Table>
                         </div>
                     </div>
 

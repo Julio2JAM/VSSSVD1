@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 interface Header {
     name: string; // Nombre del encabezado
     type: 'text' | 'button'; // Tipo de contenido: texto o botón
@@ -9,6 +11,7 @@ export interface TableData {
 }
 interface TableProps {
     config: TableData;
+    search: string
 }
 
 interface HeaderCellProps {
@@ -23,6 +26,7 @@ const HeaderCell: React.FC<HeaderCellProps> = ({ key, header, isButton }) => {
             {isButton ? (
                 <button 
                     className="justify-center gap-2 whitespace-nowrap rounded-md text-sm transition-colors focus-visible:outline-none hover:bg-gray-200 hover:text-gray-600 h-10 px-4 py-2 flex items-center font-semibold"
+                    // onClick={() => handleSort("id")}
                 >
                     {header.name}
                     <Arrow className="lucide lucide-chevrons-up-down ml-2 h-4 w-4" />
@@ -34,8 +38,16 @@ const HeaderCell: React.FC<HeaderCellProps> = ({ key, header, isButton }) => {
     );
 };
 
-export function Table({ config }: TableProps) {
+export function Table({ config, search }: TableProps) {
+    
     const { headers, rows } = config;
+
+    const filteredUsersData = rows.filter(
+        (user:any) => user.nombre.toLowerCase().includes(search.toLowerCase()) || search == ""
+    );
+
+    const finalRows = filteredUsersData;
+
     return (
         <table className="min-w-full text-sm">
 
@@ -49,7 +61,7 @@ export function Table({ config }: TableProps) {
             </thead>
 
             <tbody>
-                {rows.map((row: any, rowIndex: any) => {
+                {finalRows.map((row: any, rowIndex: any) => {
                     return (
                         <tr className="border-b transition-colors hover:bg-gray-100/80" key={rowIndex}>
                             {Object.keys(row).map((key, colIndex) => (
