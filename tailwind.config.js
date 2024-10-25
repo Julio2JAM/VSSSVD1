@@ -8,6 +8,9 @@ export default {
     extend: {
       screens: {
         'xs': '480px',
+      },
+      boxShadow: {
+        'inset-border': 'inset 0 -1px #ccc',
       }
     },
   },

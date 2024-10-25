@@ -14,7 +14,7 @@ export default function UsersPage() {
         rows: [
             { id: 1, nombre: 'Juan', edad: 28 },
             { id: 2, nombre: 'Ana', edad: 22 },
-            { id: 3, nombre: 'Lorem ipsum', edad: 35 },/*
+            { id: 3, nombre: 'Lorem ipsum', edad: 35 },
             { id: 4, nombre: 'María', edad: 30 },
             { id: 5, nombre: 'Pedro', edad: 26 },
             { id: 6, nombre: 'Laura', edad: 24 },
@@ -29,7 +29,7 @@ export default function UsersPage() {
             { id: 15, nombre: 'Natalia', edad: 21 },
             { id: 16, nombre: 'Javier', edad: 29 },
             { id: 17, nombre: 'Carmen', edad: 26 },
-            { id: 18, nombre: 'Diego', edad: 28 }*/
+            { id: 18, nombre: 'Diego', edad: 28 }
         ]
         
     }
@@ -38,8 +38,10 @@ export default function UsersPage() {
         <div className="flex h-screen bg-gray-100">
             <Sidebar />
             <div className="container mx-auto py-10">
-                <div className="rounded-lg border bg-white shadow-sm h-full">
+                {/* MAIN */}
+                <div className="rounded-lg border bg-white shadow-sm h-full flex flex-col"> 
 
+                    {/* A */}
                     <div className="p-6 flex flex-row items-center justify-between space-y-0 pb-7">
                         <div className="space-y-1">
                             <h3 className="tracking-tight text-2xl font-bold">Users</h3>
@@ -54,7 +56,9 @@ export default function UsersPage() {
                         </button>
                     </div>
 
-                    <div className="p-6 pt-0">
+                    {/* B */}
+                    <div className="p-6 pt-0 flex flex-col flex-grow overflow-hidden">
+                        {/* C */}
                         <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 mb-6">
                             <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
                                 <div className="relative w-full md:w-64" data-id="45">
@@ -66,7 +70,10 @@ export default function UsersPage() {
                                 </div>
                             </div>
                         </div>
-                        <Table config={tableConfig}></Table>
+                        {/* D */}
+                        <div className="flex-grow overflow-auto rounded-md border">
+                            <Table config={tableConfig}></Table>
+                        </div>
                     </div>
 
                 </div>
