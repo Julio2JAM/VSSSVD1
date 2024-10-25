@@ -12,36 +12,46 @@ export default function UsersPage() {
             { name: "Edad", type: "text" },
         ],
         rows: [
-            { id:1, nombre: 'Juan', edad: 28, },
-            { id:2, nombre: 'Ana', edad: 22, },
-            { id:3, nombre: 'Lorem ipsum', edad: 35, },
+            { id: 1, nombre: 'Juan', edad: 28 },
+            { id: 2, nombre: 'Ana', edad: 22 },
+            { id: 3, nombre: 'Lorem ipsum', edad: 35 },/*
+            { id: 4, nombre: 'María', edad: 30 },
+            { id: 5, nombre: 'Pedro', edad: 26 },
+            { id: 6, nombre: 'Laura', edad: 24 },
+            { id: 7, nombre: 'Carlos', edad: 29 },
+            { id: 8, nombre: 'Marta', edad: 31 },
+            { id: 9, nombre: 'Luis', edad: 27 },
+            { id: 10, nombre: 'Sofía', edad: 25 },
+            { id: 11, nombre: 'Miguel', edad: 32 },
+            { id: 12, nombre: 'Elena', edad: 28 },    
+            { id: 13, nombre: 'Lucía', edad: 23 },
+            { id: 14, nombre: 'Alberto', edad: 33 },
+            { id: 15, nombre: 'Natalia', edad: 21 },
+            { id: 16, nombre: 'Javier', edad: 29 },
+            { id: 17, nombre: 'Carmen', edad: 26 },
+            { id: 18, nombre: 'Diego', edad: 28 }*/
         ]
+        
     }
 
     return (
         <div className="flex h-screen bg-gray-100">
-
-            <Sidebar></Sidebar>
-
+            <Sidebar />
             <div className="container mx-auto py-10">
-
-                <div className="rounded-lg border bg-white shadow-sm">
+                <div className="rounded-lg border bg-white shadow-sm h-full">
 
                     <div className="p-6 flex flex-row items-center justify-between space-y-0 pb-7">
-                        
                         <div className="space-y-1">
                             <h3 className="tracking-tight text-2xl font-bold">Users</h3>
                             <p className="text-sm text-gray-500">Manage your team members and their account permissions here.</p>
                         </div>
-
                         <button 
-                            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none 10 px-4 py-2 bg-black text-white hover:bg-black/80" 
+                            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none px-4 py-2 bg-black text-white hover:bg-black/80" 
                             data-id="7"
                         >
-                            <UserAdd className="lucide lucide-user-plus mr-2 h-4 w-4"></UserAdd>
+                            <UserAdd className="lucide lucide-user-plus mr-2 h-4 w-4" />
                             Add User
                         </button>
-
                     </div>
 
                     <div className="p-6 pt-0">
@@ -58,10 +68,9 @@ export default function UsersPage() {
                         </div>
                         <Table config={tableConfig}></Table>
                     </div>
+
                 </div>
-
             </div>
-
         </div>
     )
 }

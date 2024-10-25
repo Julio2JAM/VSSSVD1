@@ -35,52 +35,52 @@ const HeaderCell: React.FC<HeaderCellProps> = ({ key, header, isButton }) => {
 };
 
 export function Table({ config }: TableProps) {
-
     const { headers, rows } = config;
-
     return (
         <div className="rounded-md border">
             <div className="relative w-full overflow-auto">
 
-                <table className="w-full caption-bottom text-sm">
-                    <thead className="w-[100px]">
-                        <tr className="border-b transition-colors hover:bg-gray-100/80">
+                <table className="min-w-full caption-bottom text-sm">
+
+                    <thead className="sticky top-0">
+                        <tr className="border-b transition-colors bg-white hover:bg-gray-100">
                             {headers.map((header, index) => (
                                 <HeaderCell key={index} header={header} isButton={header.type === 'button'} />
                             ))}
-                            <th className="h-12 px-4 align-middle font-medium text-gray-500 text-right">Accion</th>
+                            <th className="h-12 px-4 align-middle font-medium text-gray-500 text-right">Acción</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        {rows.map((row: any, rowIndex: any) => { console.log(row); return (
-                            <tr className="border-b transition-colors hover:bg-gray-100/80" key={rowIndex}>
-                                {Object.keys(row).map((key,colIndex) => (
-                                    <td className="py-4 px-4 align-middle font-medium" key={colIndex}>{row[key]}</td>
-                                ))}
-                                <td className="px-4 align-middle text-right">
-                                    <button 
-                                        className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none hover:bg-accent hover:text-accent-foreground h-8 w-8 p-0" 
-                                        type="button" 
-                                        aria-haspopup="menu" 
-                                        aria-expanded="false" 
-                                        data-state="closed"
-                                    >
-                                        <span className="sr-only" data-id="106">Open menu</span>
-                                        <Action className="lucide lucide-ellipsis h-5 w-4"></Action>
-                                    </button>
-                                </td>
-                            </tr>
-                        )})}
+                        {rows.map((row: any, rowIndex: any) => {
+                            return (
+                                <tr className="border-b transition-colors hover:bg-gray-100/80" key={rowIndex}>
+                                    {Object.keys(row).map((key, colIndex) => (
+                                        <td className="py-4 px-4 align-middle font-medium" key={colIndex}>{row[key]}</td>
+                                    ))}
+                                    <td className="px-4 align-middle text-right">
+                                        <button
+                                            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none hover:bg-accent hover:text-accent-foreground h-8 w-8 p-0"
+                                            type="button"
+                                            aria-haspopup="menu"
+                                            aria-expanded="false"
+                                            data-state="closed"
+                                        >
+                                            <span className="sr-only" data-id="106">Open menu</span>
+                                            <Action className="lucide lucide-ellipsis h-5 w-4"></Action>
+                                        </button>
+                                    </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
-
+    
                 </table>
-
             </div>
         </div>
     );
-
 }
+
 
 interface PropsType{
     className:string
