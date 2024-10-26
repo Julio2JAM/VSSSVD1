@@ -6,9 +6,9 @@ export default function UsersPage() {
 
     const tableConfig:TableData = {
         headers: [
-            { name: "ID", type: "button" },
-            { name: "Nombre", type: "button" },
-            { name: "Edad", type: "text" },
+            { name: "ID", type: "button", code:"id"},
+            { name: "Nombre", type: "button", code:"nombre"},
+            { name: "Edad", type: "text", code:"edad"},
         ],
         rows: [
             { id: 1, nombre: 'Juan', edad: 28 },
@@ -43,7 +43,7 @@ export default function UsersPage() {
                 <div className="rounded-lg border bg-white shadow-sm h-full flex flex-col"> 
 
                     {/* A */}
-                    <div className="p-6 flex flex-row items-center justify-between space-y-0 pb-7">
+                    <header className="p-6 flex flex-row items-center justify-between space-y-0 pb-7">
                         <div className="space-y-1">
                             <h3 className="tracking-tight text-2xl font-bold">Users</h3>
                             <p className="text-sm text-gray-500">Manage your team members and their account permissions here.</p>
@@ -55,10 +55,10 @@ export default function UsersPage() {
                             <UserAdd className="lucide lucide-user-plus mr-2 h-4 w-4" />
                             Add User
                         </button>
-                    </div>
+                    </header>
 
                     {/* B */}
-                    <div className="p-6 pt-0 flex flex-col flex-grow overflow-hidden">
+                    <section className="p-6 pt-0 flex flex-col flex-grow overflow-hidden">
                         {/* C */}
                         <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 mb-6">
                             <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
@@ -77,7 +77,7 @@ export default function UsersPage() {
                         <div className="flex-grow overflow-auto rounded-md border">
                             <Table config={tableConfig} search={search}></Table>
                         </div>
-                    </div>
+                    </section>
 
                 </div>
             </div>
