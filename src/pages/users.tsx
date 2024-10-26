@@ -1,3 +1,4 @@
+import { Modal } from "../components/modal";
 import { Sidebar } from "../components/sidebar";
 import { Table, TableData } from "../components/table";
 import { useState } from "react";
@@ -34,11 +35,19 @@ export default function UsersPage() {
     }
 
     const [search, setSearch] = useState("");
+    const [isOpenModal, setIsOpenModal] = useState(false);
       
     return (
         <div className="flex h-screen bg-gray-100">
             <Sidebar />
             <div className="container mx-auto py-10">
+
+                <Modal 
+                    icon="user-icon.png" 
+                    title="Usuarios" 
+                    formData=""
+                />
+
                 {/* MAIN */}
                 <div className="rounded-lg border bg-white shadow-sm h-full flex flex-col"> 
 
@@ -50,7 +59,7 @@ export default function UsersPage() {
                         </div>
                         <button 
                             className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none px-4 py-2 bg-black text-white hover:bg-black/80" 
-                            data-id="7"
+                            onClick={() => setIsOpenModal(true)}
                         >
                             <UserAdd className="lucide lucide-user-plus mr-2 h-4 w-4" />
                             Add User

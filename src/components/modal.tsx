@@ -38,14 +38,21 @@ export const Modal:React.FC<ModalData> = ({icon, title, formData }) => {
     return (
         <div className="fixed inset-0 z-50 bg-black/80">
 
-            <div>
-                <div>
-                    <header>
-                        <h3><img src={icon} alt="students-icon">{title}</img></h3>
-                        <button>&times</button>
+            <div className="container mx-auto py-10 flex items-center justify-center">
+
+                <div className="rounded-lg border bg-white shadow-sm w-96 overflow-hidden items-center">
+                    <header className="border-b p-5 flex">
+                        <h3>
+                            <img className="w-14 h-14" 
+                                src={icon} 
+                                alt="user-icon">
+                            </img>
+                            {title}
+                        </h3>
+                        <button className="border-none w-6 h-6 rounded-full bg-gray-300 font-bold">X</button>
                     </header>
 
-                    <section>        
+                    <section className="border-b p-5">        
                         <form>
                         {formData.map((field:any, index:any) => (
                             <div key={index} className="mb-4">
@@ -76,10 +83,16 @@ export const Modal:React.FC<ModalData> = ({icon, title, formData }) => {
                         </form>
                     </section>
                     
-                    <footer>
-                        <button type="submit">Submit</button>
+                    <footer className="p-4">
+                        <button 
+                            type="submit"
+                            className="border py-3 px-7 rounded-md text-base" //bg-green-300 
+                        >
+                            Submit
+                        </button>
                     </footer>
                 </div>
+
             </div>
 
         </div>
