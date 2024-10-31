@@ -69,7 +69,6 @@ export function Table({ config, search }: TableProps) {
     });
 
     const handleSort = (column: string) => {
-        console.log(`Sorting by ${column} - Current direction: ${sortDirection}`);
         if (column === sortColumn) {
             setSortDirection(sortDirection === "asc" ? "desc" : "asc");
         } else {
@@ -79,7 +78,6 @@ export function Table({ config, search }: TableProps) {
     };
     
     const finalRows = sortedRows;
-    console.log(sortedRows);
 
     return (
         <table className="min-w-full text-sm">
@@ -99,10 +97,10 @@ export function Table({ config, search }: TableProps) {
                     ))}
                     <td className="px-4 align-middle text-right">
                         <button
-                        className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors h-8 w-8 p-0 bg-gray-200 hover:bg-gray-300"
-                        type="button"
+                            className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors h-8 w-8 p-0 bg-gray-200 hover:bg-gray-300"
+                            type="button"
                         >
-                        <Action className="lucide lucide-ellipsis h-5 w-4"></Action>
+                        <Action className="h-5 w-4"></Action>
                         </button>
                     </td>
                     </tr>

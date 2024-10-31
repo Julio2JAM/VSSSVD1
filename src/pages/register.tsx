@@ -8,9 +8,8 @@ export default function RegisterPage() {
   const [passwordRepeted, setpasswordRepeted] = useState("")
   const [error, setError] = useState("")
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError("")
 
     if (!email || !password || !passwordRepeted) {
       setError("Please fill in all fields")
@@ -22,7 +21,19 @@ export default function RegisterPage() {
         return;
     }
 
-    // console.log("Login attempt with:", { email, password })
+    const response = await fetch('http://yourapi.com/register', {
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json'
+        }, 
+        body: JSON.stringify({
+            email, 
+            password
+        })
+    });
+
+    const data = await response.json();
+    console.log(data);
   }
 
   return (
@@ -38,8 +49,8 @@ export default function RegisterPage() {
         <div className="rounded-lg border shadow-sm w-full max-w-md bg-white">
 
             <header className="flex flex-col space-y-1.5 p-6">
-                <h3 className="tracking-tight text-2xl font-bold text-center">Login</h3>
-                <p className="text-sm text-gray-500 text-center">Enter your credentials to access your account</p>
+                <h3 className="tracking-tight text-2xl font-bold text-center">Registro</h3>
+                <p className="text-sm text-gray-500 text-center">Ingresa tus datos para crear tu cuenta.</p>
             </header>
 
             <section className="p-6 pt-0">
@@ -63,7 +74,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium" htmlFor="password">Password</label>
+                            <label className="text-sm font-medium" htmlFor="password">Contraseña</label>
                             <div className="relative">
                                 <Password className="absolute left-3 top-3 h-4 w-4 text-gray-500"></Password>
                                 <input 
@@ -78,7 +89,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium" htmlFor="password">Repeat password</label>
+                            <label className="text-sm font-medium" htmlFor="password">Repetir contraseña</label>
                             <div className="relative">
                                 <Password className="absolute left-3 top-3 h-4 w-4 text-gray-500"></Password>
                                 <input 
@@ -92,15 +103,14 @@ export default function RegisterPage() {
                             </div>
                         </div>
 
-                        <button className="rounded-md text-sm font-medium transition-colors focus-visible:outline-none bg-black text-white hover:bg-black/80 h-10 px-4 py-2 w-full" type="submit">Login</button>
+                        <button className="rounded-md text-sm font-medium transition-colors focus-visible:outline-none bg-black text-white hover:bg-black/80 h-10 px-4 py-2 w-full" type="submit">Crear cuenta</button>
 
                     </div>
                 </form>
             </section>
         
-        
             <footer className="items-center p-6 pt-0 flex justify-center">
-                <p className="text-sm text-gray-500">Already have an account? <Link to="/"className="text-black hover:underline">Sign In</Link></p>
+                <p className="text-sm text-gray-500">¿Ya tienes una cuenta? <Link to="/"className="text-black hover:underline">Inicia sesion</Link></p>
             </footer>
 
         </div>

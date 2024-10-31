@@ -18,7 +18,7 @@ export default function LoginPage() {
     }
 
     // Here you would typically make an API call to authenticate the user
-    console.log("Login attempt with:", { email, password })
+    // console.log("Login attempt with:", { email, password })
     // For demonstration purposes, we'll just log the attempt
 
     setError("Invalid email or password") // Simulating an error response

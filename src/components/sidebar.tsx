@@ -16,7 +16,7 @@ export function Sidebar(){
                 href="#" 
                 className="mb-4 flex items-center rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-200"
                 >
-                    <Dashboard className="lucide lucide-panels-top-left mr-3 h-6 w-6" ></Dashboard>
+                    <Dashboard className="mr-3 h-6 w-6" ></Dashboard>
                     Dashboard
                 </a>
                 <SidebarUsers></SidebarUsers>
@@ -32,7 +32,7 @@ export function SidebarUsers(){
             href="#"
             className="mb-4 flex items-center rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-200"
         >
-            <User className="lucide lucide-panels-top-left mr-3 h-6 w-6"></User>
+            <User className="mr-3 h-6 w-6"></User>
             Users
         </a>
     )

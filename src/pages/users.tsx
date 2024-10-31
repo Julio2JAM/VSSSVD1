@@ -46,22 +46,24 @@ export default function UsersPage() {
                     icon="user-icon.png" 
                     title="Usuarios" 
                     formData=""
+                    onClose={() => setIsOpenModal(false)}
+                    isOpen={isOpenModal}
                 />
 
                 {/* MAIN */}
                 <div className="rounded-lg border bg-white shadow-sm h-full flex flex-col"> 
 
                     {/* A */}
-                    <header className="p-6 flex flex-row items-center justify-between space-y-0 pb-7">
+                    <header className="p-6 flex flex-row items-center justify-between space-y-0">
                         <div className="space-y-1">
                             <h3 className="tracking-tight text-2xl font-bold">Users</h3>
                             <p className="text-sm text-gray-500">Manage your team members and their account permissions here.</p>
                         </div>
                         <button 
-                            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none px-4 py-2 bg-black text-white hover:bg-black/80" 
+                            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none px-4 py-2 bg-black text-white hover:bg-black/70" 
                             onClick={() => setIsOpenModal(true)}
                         >
-                            <UserAdd className="lucide lucide-user-plus mr-2 h-4 w-4" />
+                            <UserAdd className="mr-2 h-4 w-4" />
                             Add User
                         </button>
                     </header>
@@ -69,16 +71,27 @@ export default function UsersPage() {
                     {/* B */}
                     <section className="p-6 pt-0 flex flex-col flex-grow overflow-hidden">
                         {/* C */}
-                        <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 mb-6">
+                        <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 mb-6 mt-1">
                             <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
                                 <div className="relative w-full md:w-64">
-                                    <Search className="lucide lucide-search absolute left-2 top-2.5 h-4 w-4 text-muted-foreground"></Search>
+                                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground"></Search>
                                     <input 
-                                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 pl-8" 
+                                        className="flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:outline-none pl-8" 
                                         placeholder="Search users..." 
                                         value={search}
                                         onChange={(e) => setSearch(e.target.value)}
                                     />
+                                </div>
+                                <div className="relative w-full md:w-64">
+                                    <select
+                                        className="h-10 rounded-md border px-3 py-2 text-sm focus:outline-none w-full md:w-[180px] appearance-none" 
+                                        onChange={(e) => setSearch(e.target.value)}
+                                    >
+                                        <option value="">Sel</option>
+                                    </select>
+                                    <div className="pointer-events-none absolute left-32 top-2.5 ">
+                                        <ArrowSelect className="ml-5 h-5 w-5"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -116,6 +129,24 @@ function UserAdd(props:PropsType){
             <circle cx="9" cy="7" r="4"></circle>
             <line x1="19" x2="19" y1="8" y2="14"></line>
             <line x1="22" x2="16" y1="11" y2="11"></line>
+        </svg>
+    )
+}
+
+const ArrowSelect:React.FC<PropsType> = (props) => {
+    return (
+        <svg 
+            {...props}
+            xmlns="http://www.w3.org/2000/svg" 
+            width="24" 
+            height="24" 
+            viewBox="0 0 24 24" fill="none" 
+            stroke="currentColor" 
+            stroke-width="2" 
+            stroke-linecap="round" 
+            stroke-linejoin="round" 
+        >
+            <path d="m6 9 6 6 6-6"></path>
         </svg>
     )
 }

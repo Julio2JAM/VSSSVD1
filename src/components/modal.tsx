@@ -1,10 +1,12 @@
 interface ModalData{
     icon:string,
-    title:string
-    formData:any
+    title:string,
+    formData:any,
+    onClose:Function
+    isOpen:Boolean
 }
 
-export const Modal:React.FC<ModalData> = ({icon, title, formData }) => {
+export const Modal:React.FC<ModalData> = ({icon, title, formData, onClose, isOpen }) => {
     formData = [
         {
             id: "email",
@@ -34,22 +36,40 @@ export const Modal:React.FC<ModalData> = ({icon, title, formData }) => {
             }
         }
     ];
+
+    if(!isOpen){
+        return null;
+    }
     
     return (
-        <div className="fixed inset-0 z-50 bg-black/80">
+        <div 
+            className="fixed inset-0 z-50 bg-black/80"
+            onClick={() => onClose()}
+        >
 
             <div className="container mx-auto py-10 flex items-center justify-center">
 
-                <div className="rounded-lg border bg-white shadow-sm w-96 overflow-hidden items-center">
-                    <header className="border-b p-5 flex">
-                        <h3>
+                <div 
+                    className="rounded-xl border bg-white shadow-sm w-96 overflow-hidden items-center"
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    {/* //items-center */}
+                    <header className="border-b p-5 flex justify-between bg-gray-300"> 
+                        <div className="flex items-center gap-3">
                             <img className="w-14 h-14" 
                                 src={icon} 
                                 alt="user-icon">
                             </img>
-                            {title}
-                        </h3>
-                        <button className="border-none w-6 h-6 rounded-full bg-gray-300 font-bold">X</button>
+                            <h3 className="font-normal text-xl  tracking-tight">
+                                {title}
+                            </h3>
+                        </div>
+                        <button 
+                            className="border-none w-6 h-6 rounded-full bg-white font-bold hover:bg-red-300 hover:text-white transition-colors"
+                            onClick={() => onClose()}
+                        >
+                            X
+                        </button>
                     </header>
 
                     <section className="border-b p-5">        
@@ -83,10 +103,10 @@ export const Modal:React.FC<ModalData> = ({icon, title, formData }) => {
                         </form>
                     </section>
                     
-                    <footer className="p-4">
+                    <footer className="p-4 content-center flex flex-row justify-center bg-gray-300">
                         <button 
                             type="submit"
-                            className="border py-3 px-7 rounded-md text-base" //bg-green-300 
+                            className="border py-3 px-7 rounded-md text-base bg-white" //bg-green-300 
                         >
                             Submit
                         </button>
