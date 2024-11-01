@@ -1,13 +1,14 @@
-import { API_URL, HTTP_STATUS, REGISTER } from "../config/constant";
+import { API_URL, LOGIN, REGISTER } from "../config/constant";
 import { User } from "../config/interfaces";
+import { getErrorMessage, handleError } from "./errorService";
 
-interface CreateUserResponse{
+interface PostPutUserResponse{
     user?:User,
     message:string
     status: number; 
 }
 
-export const CreateUser = async (email: string, password: string):Promise<CreateUserResponse> => {
+export const CreateUser = async (email: string, password: string):Promise<PostPutUserResponse> => {
     try {
 
         const response = await fetch(`${API_URL}${REGISTER}`, {
@@ -19,16 +20,37 @@ export const CreateUser = async (email: string, password: string):Promise<Create
         });
     
         if (!response.ok) {
-            throw new Error('Error al registrar el usuario');
+            const defaultErrorMessage = 'Error al iniciar sesión el usuario';
+            const message = await getErrorMessage(response) || defaultErrorMessage;
+            throw new Error(message);
         }
     
         return await response.json();
     } catch (error:unknown) {
-        const response = {
-            message: error instanceof Error ? error.message : "Ha ocurrido un error de conexion.",
-            status:HTTP_STATUS.INTERNAL_SERVER_ERROR
+        return handleError(error);
+    }
+};
+
+
+export const Login = async (email: string, password: string):Promise<PostPutUserResponse> => {
+    try {
+        const response = await fetch(`${API_URL}${LOGIN}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        });
+    
+        if (!response.ok) {
+            const defaultErrorMessage = 'Error al iniciar sesión el usuario';
+            const message = await getErrorMessage(response) || defaultErrorMessage;
+            throw new Error(message);
         }
-        return response;
+    
+        return await response.json();
+    } catch (error:unknown) {
+        return handleError(error);
     }
 };
 

@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { Link } from "react-router-dom";
 import { Footer } from "../components/footer";
+import { Login } from "../services/authService";
+import { HTTP_STATUS } from "../config/constant";
 
 export default function LoginPage() {
 
@@ -8,20 +10,23 @@ export default function LoginPage() {
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setError("")
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
     if (!email || !password) {
-      setError("Please fill in all fields")
-      return
+        setError("Introduzca todos los datos.");
+        return;
     }
 
-    // Here you would typically make an API call to authenticate the user
-    // console.log("Login attempt with:", { email, password })
-    // For demonstration purposes, we'll just log the attempt
+    const data = await Login(email, password);
 
-    setError("Invalid email or password") // Simulating an error response
+    if(data.status !== HTTP_STATUS.CREATED){
+        setError(data.message);
+        return;
+    }
+
+    setError("");
+    console.log(data);
   }
 
     return (

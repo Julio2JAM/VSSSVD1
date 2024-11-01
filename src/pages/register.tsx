@@ -11,15 +11,15 @@ export default function RegisterPage() {
   const [error, setError] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!email || !password || !passwordRepeted) {
-      setError("Please fill in all fields")
-      return
+        setError("Introduzca todos los datos.");
+        return;
     }
 
     if(password !== passwordRepeted){
-        setError("Incorrect Passwords");
+        setError("Las contraseñas no coinciden.");
         return;
     }
 
@@ -27,8 +27,10 @@ export default function RegisterPage() {
 
     if(data.status !== HTTP_STATUS.CREATED){
         setError(data.message);
+        return;
     }
     
+    setError("");
     console.log(data);
   }
 
