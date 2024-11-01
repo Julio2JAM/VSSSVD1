@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { Footer } from "../components/footer"
+import { CreateUser } from "../services/authService"
+import { HTTP_STATUS } from "../config/constant"
 
 export default function RegisterPage() {    
   const [email, setEmail] = useState("")
@@ -21,18 +23,12 @@ export default function RegisterPage() {
         return;
     }
 
-    const response = await fetch('http://yourapi.com/register', {
-        method: 'POST', 
-        headers: {
-            'Content-Type': 'application/json'
-        }, 
-        body: JSON.stringify({
-            email, 
-            password
-        })
-    });
+    const data = await CreateUser(email, password);
 
-    const data = await response.json();
+    if(data.status !== HTTP_STATUS.CREATED){
+        setError(data.message);
+    }
+    
     console.log(data);
   }
 
@@ -94,7 +90,7 @@ export default function RegisterPage() {
                                 <Password className="absolute left-3 top-3 h-4 w-4 text-gray-500"></Password>
                                 <input 
                                     className={`flex h-10 w-full rounded-md border px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none pl-10 ${(error && (!passwordRepeted || (password !== passwordRepeted))) ? "border-red-400/50" : ""}`}
-                                    id="password" 
+                                    id="repetPassword" 
                                     placeholder="Enter your password" 
                                     type="password" 
                                     value={passwordRepeted}
