@@ -24,9 +24,11 @@ export default function LoginPage() {
         setError(data.message);
         return;
     }
-
-    setError("");
-    console.log(data);
+    
+    if(!data.user?.role){
+        setError("No posee permisos para ingresar.");
+    }
+    
   }
 
     return (
