@@ -84,7 +84,7 @@ export default function UsersPage() {
                                 </div>
                                 <div className="relative w-full md:w-64">
                                     <select
-                                        className="h-10 rounded-md border px-3 py-2 text-sm focus:outline-none w-full md:w-[180px] appearance-none" 
+                                        className="h-10 rounded-md border px-3 py-2 text-sm focus:outline-none w-full md:w-[180px] appearance-none bg-white" 
                                         onChange={(e) => setSearch(e.target.value)}
                                     >
                                         <option value="">Sel</option>
