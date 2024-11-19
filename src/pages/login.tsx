@@ -2,7 +2,6 @@ import { useState } from "react"
 import { Link } from "react-router-dom";
 import { Footer } from "../components/footer";
 import { Login } from "../services/authService";
-import { HTTP_STATUS } from "../config/constant";
 
 export default function LoginPage() {
 
@@ -18,17 +17,20 @@ export default function LoginPage() {
         return;
     }
 
-    const data = await Login(email, password);
+    const response = await Login(email, password);
 
-    if(data.status !== HTTP_STATUS.CREATED){
-        setError(data.message);
+    if(!("token" in response)){
+        setError(response.message);
         return;
     }
-    
-    if(!data.user?.role){
+
+    if(!response.user.role){
         setError("No posee permisos para ingresar.");
     }
-    
+
+    // Guardar el token 
+    localStorage.setItem('token', response.token);
+
   }
 
     return (
@@ -36,7 +38,7 @@ export default function LoginPage() {
 
         <div className="flex-grow flex flex-col items-center justify-center bg-gray-100 p-4">
 
-        <div className={`${!error ? "hidden" : ""} bg-red-50 relative rounded-lg border p-4 px-12 border-red-400/50 text-red-400 mb-4 max-w-md w-full`}>
+        <div className={`${!error ? "hidden" : ""} bg-red-50 relative rounded-lg border p-4 px-12 border-red-400/50 text-red-400 mb-4 max-w-md w-full text-justify`}>
             <CloseBtn className="absolute h-5 w-5 right-5 cursor-pointer" onClick={() => setError("")}></CloseBtn>
             <Warning className="absolute h-5 w-5 left-5"></Warning>
             <p className="text-sm">{error}</p>
@@ -45,8 +47,8 @@ export default function LoginPage() {
         <div className="rounded-lg border shadow-sm w-full max-w-md bg-white">
 
             <header className="flex flex-col space-y-1.5 p-6">
-                <h3 className="tracking-tight text-2xl font-bold text-center">Login</h3>
-                <p className="text-sm text-gray-500 text-center">Enter your credentials to access your account</p>
+                <h3 className="tracking-tight text-2xl font-bold text-center">Iniciar sesion</h3>
+                <p className="text-sm text-gray-500 text-center">Ingresa tus datos para acceder a tu cuenta</p>
             </header>
 
             <section className="p-6 pt-0">

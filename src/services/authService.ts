@@ -2,13 +2,25 @@ import { API_URL, LOGIN, REGISTER } from "../config/constant";
 import { User } from "../config/interfaces";
 import { getErrorMessage, handleError } from "./errorService";
 
-interface PostPutUserResponse{
-    user?:User,
+interface NewUserResponse{
+    user:User,
     message:string
     status: number; 
 }
 
-export const CreateUser = async (email: string, password: string):Promise<PostPutUserResponse> => {
+interface LoginResponse{
+    token:string
+    user:User
+    message:string
+    status: number
+}
+
+interface ErrorResponse{
+    message:string
+    status: number
+}
+
+export const CreateUser = async (email: string, password: string):Promise<NewUserResponse|ErrorResponse> => {
     try {
 
         const response = await fetch(`${API_URL}${REGISTER}`, {
@@ -32,7 +44,7 @@ export const CreateUser = async (email: string, password: string):Promise<PostPu
 };
 
 
-export const Login = async (email: string, password: string):Promise<PostPutUserResponse> => {
+export const Login = async (email: string, password: string):Promise<LoginResponse|ErrorResponse> => {
     try {
         const response = await fetch(`${API_URL}${LOGIN}`, {
             method: 'POST',
@@ -48,9 +60,8 @@ export const Login = async (email: string, password: string):Promise<PostPutUser
             throw new Error(message);
         }
     
-        return await response.json();
+        return await response.json() as LoginResponse;
     } catch (error:unknown) {
-        return handleError(error);
+        return handleError(error) as ErrorResponse;
     }
 };
-

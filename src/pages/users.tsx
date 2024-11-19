@@ -1,9 +1,32 @@
 import { Modal } from "../components/modal";
 import { Sidebar } from "../components/sidebar";
 import { Table, TableData } from "../components/table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getUsers } from "../services/userService";
+import { User } from "../config/interfaces";
 
 export default function UsersPage() {
+    
+    const [rows, setRows] = useState<User[]>([]);
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const data = await getUsers();
+                console.log(data);
+                
+                if(("message" in data)){
+                    throw new Error();
+                }
+
+                setRows(data.user);
+
+            } catch (error) {
+                console.error('Error al obtener los datos:', error);
+            }
+        };
+        fetchUsers();
+    }, []);
 
     const tableConfig:TableData = {
         headers: [
@@ -11,27 +34,7 @@ export default function UsersPage() {
             { name: "Nombre", type: "button", code:"nombre"},
             { name: "Edad", type: "text", code:"edad"},
         ],
-        rows: [
-            { id: 1, nombre: 'Juan', edad: 28 },
-            { id: 2, nombre: 'Ana', edad: 22 },
-            { id: 3, nombre: 'Lorem ipsum', edad: 35 },
-            { id: 4, nombre: 'María', edad: 30 },
-            { id: 5, nombre: 'Pedro', edad: 26 },
-            { id: 6, nombre: 'Laura', edad: 24 },
-            { id: 7, nombre: 'Carlos', edad: 29 },
-            { id: 8, nombre: 'Marta', edad: 31 },
-            { id: 9, nombre: 'Luis', edad: 27 },
-            { id: 10, nombre: 'Sofía', edad: 25 },
-            { id: 11, nombre: 'Miguel', edad: 32 },
-            { id: 12, nombre: 'Elena', edad: 28 },    
-            { id: 13, nombre: 'Lucía', edad: 23 },
-            { id: 14, nombre: 'Alberto', edad: 33 },
-            { id: 15, nombre: 'Natalia', edad: 21 },
-            { id: 16, nombre: 'Javier', edad: 29 },
-            { id: 17, nombre: 'Carmen', edad: 26 },
-            { id: 18, nombre: 'Diego', edad: 28 }
-        ]
-        
+        rows: rows
     }
 
     const [search, setSearch] = useState("");
@@ -142,9 +145,9 @@ const ArrowSelect:React.FC<PropsType> = (props) => {
             height="24" 
             viewBox="0 0 24 24" fill="none" 
             stroke="currentColor" 
-            stroke-width="2" 
-            stroke-linecap="round" 
-            stroke-linejoin="round" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
         >
             <path d="m6 9 6 6 6-6"></path>
         </svg>
