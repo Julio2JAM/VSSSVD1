@@ -3,11 +3,21 @@ import { Sidebar } from "../components/sidebar";
 import { Table, TableData } from "../components/table";
 import { useEffect, useState } from "react";
 import { getUsers } from "../services/userService";
-import { User } from "../config/interfaces";
+import { Role, User } from "../config/interfaces";
+import { SelectComponent } from "../components/select";
 
 export default function UsersPage() {
     
     const [rows, setRows] = useState<User[]>([]);
+    const [roles, setRoles] = useState<Role[]>([]);
+    
+    // const roles = [
+    //     {
+    //         id:1,
+    //         name:"ADMIN",
+    //         code:"ADMIN",
+    //     }
+    // ];
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -19,20 +29,31 @@ export default function UsersPage() {
                     throw new Error();
                 }
 
-                setRows(data.user);
+                setRows(data);
 
             } catch (error) {
                 console.error('Error al obtener los datos:', error);
             }
         };
+
         fetchUsers();
+
+        setRoles([
+            {
+                id:1,
+                name:"ADMIN",
+                code:"ADMIN",
+            }
+        ])
+
     }, []);
 
     const tableConfig:TableData = {
         headers: [
             { name: "ID", type: "button", code:"id"},
-            { name: "Nombre", type: "button", code:"nombre"},
-            { name: "Edad", type: "text", code:"edad"},
+            { name: "Rol", type: "text", code:"role"},
+            { name: "Email", type: "button", code:"email"},
+            { name: "Registro", type: "text", code:"date"},
         ],
         rows: rows
     }
@@ -86,15 +107,16 @@ export default function UsersPage() {
                                     />
                                 </div>
                                 <div className="relative w-full md:w-64">
-                                    <select
+
+                                    <SelectComponent 
+                                        options={roles} 
                                         className="h-10 rounded-md border px-3 py-2 text-sm focus:outline-none w-full md:w-[180px] appearance-none bg-white" 
-                                        onChange={(e) => setSearch(e.target.value)}
-                                    >
-                                        <option value="">Sel</option>
-                                    </select>
+                                        onChange={(e:any) => setSearch(e.target.value)}
+                                    />
                                     <div className="pointer-events-none absolute left-32 top-2.5 ">
                                         <ArrowSelect className="ml-5 h-5 w-5"/>
                                     </div>
+
                                 </div>
                             </div>
                         </div>

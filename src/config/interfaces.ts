@@ -11,4 +11,10 @@ export interface User {
     password: string
     date:Date
 }
+
+export interface Role {
+    id: number
+    name: string
+    code: string
+}
   
