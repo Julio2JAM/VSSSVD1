@@ -1,29 +1,20 @@
-import { Modal } from "../components/modal";
-import { Sidebar } from "../components/sidebar";
-import { Table, TableData } from "../components/table";
+import { Modal } from "../../components/modal";
+import { Sidebar } from "../../components/sidebar";
+import { Table, TableData } from "../../components/table";
 import { useEffect, useState } from "react";
-import { getUsers } from "../services/userService";
-import { Role, User } from "../config/interfaces";
-import { SelectComponent } from "../components/select";
+import { getUsers } from "../../services/userService";
+import { Role, User } from "../../config/interfaces";
+import { SelectComponent } from "../../components/select";
 
 export default function UsersPage() {
     
     const [rows, setRows] = useState<User[]>([]);
     const [roles, setRoles] = useState<Role[]>([]);
-    
-    // const roles = [
-    //     {
-    //         id:1,
-    //         name:"ADMIN",
-    //         code:"ADMIN",
-    //     }
-    // ];
 
     useEffect(() => {
         const fetchUsers = async () => {
             try {
                 const data = await getUsers();
-                console.log(data);
                 
                 if(("message" in data)){
                     throw new Error();
@@ -51,10 +42,11 @@ export default function UsersPage() {
     const tableConfig:TableData = {
         headers: [
             { name: "ID", type: "button", code:"id"},
-            { name: "Rol", type: "text", code:"role"},
             { name: "Email", type: "button", code:"email"},
+            { name: "Rol", type: "text", code:"role"},
             { name: "Registro", type: "text", code:"date"},
         ],
+        fields: ["id","email","role","date"],
         rows: rows
     }
 

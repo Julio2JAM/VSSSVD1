@@ -12,7 +12,8 @@ interface Header {
 
 export interface TableData {
     headers: Header[]; // Un array de encabezados
-    rows: any;     // O puedes definir un tipo más específico para las filas
+    fields: string[];
+    rows: any;     // Datos
 }
 
 interface TableProps {
@@ -54,10 +55,11 @@ const HeaderCell: React.FC<HeaderCellProps> = ({ header, isButton, sort, sortCol
 
 export function Table({ config, search }: TableProps) {
     
-    const { headers, rows } = config;
-    const filteredRows = rows.filter(
-        (user: any) => user.nombre.toLowerCase().includes(search.toLowerCase()) || search === ""
-    );
+    const { headers, fields, rows } = config;
+    const filteredRows = rows;
+    // const filteredRows = rows.filter(
+    //     (user: any) => user.nombre.toLowerCase().includes(search.toLowerCase()) || search === ""
+    // );
 
     const [sortColumn, setSortColumn] = useState(headers[0].name);
     const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
@@ -76,7 +78,6 @@ export function Table({ config, search }: TableProps) {
             setSortDirection("asc");
         }
     };
-    
     const finalRows = sortedRows;
 
     return (
@@ -92,9 +93,9 @@ export function Table({ config, search }: TableProps) {
             <tbody>
                 {finalRows.map((row: any, rowIndex: any) => (
                     <tr className="border-b transition-colors hover:bg-gray-100/80" key={rowIndex}>
-                    {Object.keys(row).map((key, colIndex) => (
-                        <td className="py-4 px-4 align-middle font-medium" key={`${rowIndex}-${colIndex}`}>{row[key]}</td>
-                    ))}
+                    {fields.map(field => (
+                        <td className="py-4 px-4 align-middle font-medium" key={field}>{row[field]}</td>)
+                    )}
                     <td className="px-4 align-middle text-right">
                         <button
                             className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors h-8 w-8 p-0 bg-gray-200 hover:bg-gray-300"
