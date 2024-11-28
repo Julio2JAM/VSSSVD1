@@ -1,7 +1,7 @@
 export const API_URL = "http://localhost:3000/api";
 export const ROLE = "/role";
 export const REGISTER = "/user";
-export const GET_USER = "/user";
+export const USER = "/user";
 export const LOGIN = "/user/login";
 
 export const HTTP_STATUS = {

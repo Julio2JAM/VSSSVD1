@@ -2,7 +2,7 @@ import { Modal } from "../../components/modal";
 import { Sidebar } from "../../components/sidebar";
 import { Table, TableData } from "../../components/table";
 import { useEffect, useState } from "react";
-import { getUsers } from "../../services/userService";
+import { getUsers, postUsers } from "../../services/userService";
 import { Role, User } from "../../config/interfaces";
 import { SelectComponent } from "../../components/select";
 
@@ -38,6 +38,32 @@ export default function UsersPage() {
         ])
 
     }, []);
+    
+    const formModal = [
+        {
+            id: "email",
+            label: "Email",
+            input: {
+                "type": "email",
+                "placeholder": "Enter your email"
+            }
+        },
+        {
+            id: "password",
+            label: "Password",
+            input: {
+                "type": "password",
+                "placeholder": "Enter your password"
+            }
+        },
+        {
+            id: "status",
+            label: "Status",
+            select: {
+                options: roles
+            }
+        }
+    ];
 
     const tableConfig:TableData = {
         headers: [
@@ -61,9 +87,10 @@ export default function UsersPage() {
                 <Modal 
                     icon="user-icon.png" 
                     title="Usuarios" 
-                    formData=""
+                    formData={formModal}
                     onClose={() => setIsOpenModal(false)}
                     isOpen={isOpenModal}
+                    onSubmit={postUsers}
                 />
 
                 {/* MAIN */}

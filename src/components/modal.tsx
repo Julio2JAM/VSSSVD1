@@ -3,39 +3,11 @@ interface ModalData{
     title:string,
     formData:any,
     onClose:Function
+    onSubmit:Function
     isOpen:Boolean
 }
 
-export const Modal:React.FC<ModalData> = ({icon, title, formData, onClose, isOpen }) => {
-    formData = [
-        {
-            id: "email",
-            label: "Email",
-            input: {
-                "type": "email",
-                "placeholder": "Enter your email"
-            }
-        },
-        {
-            id: "password",
-            label: "Password",
-            input: {
-                "type": "password",
-                "placeholder": "Enter your password"
-            }
-        },
-        {
-            id: "country",
-            label: "Country",
-            select: {
-                options: [
-                    { "value": "us", "text": "United States" },
-                    { "value": "ca", "text": "Canada" },
-                    { "value": "mx", "text": "Mexico" }
-                ]
-            }
-        }
-    ];
+export const Modal:React.FC<ModalData> = ({icon, title, formData, onClose, isOpen, onSubmit }) => {
 
     if(!isOpen){
         return null;
@@ -107,6 +79,7 @@ export const Modal:React.FC<ModalData> = ({icon, title, formData, onClose, isOpe
                         <button 
                             type="submit"
                             className="border py-3 px-7 rounded-md text-base bg-white" //bg-green-300 
+                            onClick={() => onSubmit()}
                         >
                             Submit
                         </button>
